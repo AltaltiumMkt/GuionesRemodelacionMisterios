@@ -1,0 +1,524 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Guiones RENOVA Misterios 89</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap">
+<style>
+/* Concepto: mesa de montaje. Arriba, el estado de la obra y los cinco guiones como bobinas seleccionables.
+   El guion elegido se lee como una escaleta de rodaje (tiempo, rol, qué se dice, qué se ve, gatillo) con un radar de evaluación al lado.
+   Marca Altaltium: negro, teal #52BEC0, Montserrat + Playfair para las frases que se dicen en cámara. */
+:root{
+  --bg:#0A0C0D; --surface:#111516; --surface2:#182022; --line:#263033;
+  --fg:#EDF3F3; --muted:#9AABAD; --accent:#52BEC0; --brand:#52BEC0; --hi:#00E5E5;
+  --on-brand:#041213; --brand-soft:rgba(82,190,192,.11);
+  --warn:#E6B04B; --warn-bg:rgba(230,176,75,.10);
+  --fh:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fq:'Playfair Display',Georgia,'Times New Roman',serif;
+  --fm:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F3F8F8; --surface:#FFFFFF; --surface2:#E8F0F0; --line:#CFDCDC;
+    --fg:#0A1415; --muted:#506669; --accent:#0B7B7E; --brand:#52BEC0; --hi:#0B7B7E;
+    --on-brand:#041213; --brand-soft:rgba(82,190,192,.16);
+    --warn:#8A5A00; --warn-bg:rgba(138,90,0,.09);
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F3F8F8; --surface:#FFFFFF; --surface2:#E8F0F0; --line:#CFDCDC;
+  --fg:#0A1415; --muted:#506669; --accent:#0B7B7E; --brand:#52BEC0; --hi:#0B7B7E;
+  --on-brand:#041213; --brand-soft:rgba(82,190,192,.16);
+  --warn:#8A5A00; --warn-bg:rgba(138,90,0,.09);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--fh);-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.band{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:1180px;margin:0 auto}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+.eb{font:500 11px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sub{color:var(--muted);max-width:64ch;margin-top:8px}
+h2{font-weight:700;font-size:clamp(22px,3.4vw,30px);letter-spacing:-.01em;text-wrap:balance}
+
+/* barra superior */
+.top{border-bottom:1px solid var(--line)}
+.topin{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap;padding-block:14px}
+.wm{font:600 12px var(--fm);letter-spacing:.16em;text-transform:uppercase}
+.wm span{color:var(--muted)}
+.ctx{font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+/* encabezado */
+.hero{padding-block:36px 34px}
+.herogrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px 40px;align-items:end}
+h1{font-weight:800;font-size:clamp(30px,5.4vw,54px);line-height:1.04;letter-spacing:-.02em;margin-top:10px;text-wrap:balance}
+.lead{color:var(--muted);margin-top:14px;max-width:52ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.fact{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.fact b{display:block;font-weight:700;font-size:22px;line-height:1.15;font-variant-numeric:tabular-nums}
+.fact span{display:block;margin-top:4px;font:500 10.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* secciones */
+.sec{padding-block:40px;border-top:1px solid var(--line)}
+.sechead{margin-bottom:20px}
+
+/* estado de la obra */
+.track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.node{width:100%;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--line);border-radius:0 0 8px 8px;padding:14px 16px;display:block}
+.node.now{border-top-color:var(--brand)}
+.node:hover{background:var(--surface2)}
+.node[aria-pressed="true"]{background:var(--surface2);border-color:var(--accent);border-top-color:var(--brand)}
+.node .k{font:500 10.5px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.node strong{display:block;font-weight:700;font-size:16px;margin-top:6px;text-wrap:balance}
+.node .w{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.counters{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:14px;font:500 12px var(--fm);color:var(--muted)}
+.counters b{color:var(--fg);font-weight:500}
+.stagebox{margin-top:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stagebox>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.stagebox h3{font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.stagebox li{position:relative;padding-left:16px;margin-top:7px;font-size:14px}
+.stagebox li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:1px;background:var(--accent)}
+
+/* selector de guiones */
+.picker{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pick{text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:block}
+.pick:hover{background:var(--surface2)}
+.pick[aria-selected="true"]{background:var(--surface2);border-color:var(--accent);box-shadow:inset 0 -3px 0 var(--brand)}
+.pick .n{font:500 10.5px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pick strong{display:block;font-size:15px;font-weight:700;margin-top:4px;text-wrap:balance}
+.pick .m{display:block;margin-top:6px;font-size:12px;color:var(--muted)}
+
+.panel{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px}
+.dhead{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px 32px;align-items:start}
+.kick{font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.panel h3.t{font-weight:800;font-size:clamp(22px,3.2vw,30px);letter-spacing:-.01em;margin-top:6px;text-wrap:balance}
+.goal{color:var(--muted);margin-top:8px;max-width:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:4px 10px;background:var(--surface2)}
+.chip b{font:500 11px var(--fm);color:var(--accent);margin-right:4px}
+.radarbox{text-align:center}
+.radarbox svg{width:100%;max-width:320px;height:auto}
+.radarbox small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.hook{margin:22px 0 18px;padding:18px 20px;background:var(--surface2);border-radius:8px}
+.hook .q{font:italic 500 clamp(19px,2.6vw,25px)/1.3 var(--fq);margin-top:8px;text-wrap:balance}
+.hook .s{margin-top:10px;font:500 12px var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.why{max-width:70ch;margin-bottom:18px}
+.why b{font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+
+.segs{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg,.seg-h{display:grid;grid-template-columns:76px 96px minmax(0,1.55fr) minmax(0,1fr) minmax(0,1.2fr) minmax(0,.85fr)}
+.seg-h{background:var(--surface2);font:500 10.5px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.seg-h>div{padding:10px 14px}
+.seg{border-top:1px solid var(--line)}
+.seg.cta{background:var(--brand-soft)}
+.c{padding:14px;min-width:0}
+.c.t{font:500 12px var(--fm);color:var(--accent);font-variant-numeric:tabular-nums}
+.c.r{font:500 11px var(--fm);letter-spacing:.1em;text-transform:uppercase}
+.c.say{font:500 16px/1.45 var(--fq)}
+.c.scr{font:500 11.5px/1.5 var(--fm);letter-spacing:.03em;text-transform:uppercase;color:var(--accent)}
+.c.shot{font-size:13px}
+.c.trig{font-size:12px;color:var(--muted)}
+
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.box{border:1px solid var(--line);border-radius:8px;padding:16px 18px;min-width:0}
+.box h4{margin:0 0 8px;font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cap{white-space:pre-wrap;font-size:13px;line-height:1.55;margin:0;overflow-wrap:anywhere}
+.notes{margin-top:18px;padding:14px 18px;background:var(--warn-bg);border-radius:8px}
+.notes h4{margin:0 0 8px;font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--warn)}
+.notes li{position:relative;padding-left:16px;margin-top:6px;font-size:13.5px}
+.notes li::before{content:"!";position:absolute;left:2px;font:600 12px var(--fm);color:var(--warn)}
+.actions{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.btn{cursor:pointer;font:600 12px var(--fh);padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:var(--surface2)}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.manual{width:100%;margin-top:10px;min-height:120px;background:var(--surface2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:10px;font:400 12px/1.5 var(--fm)}
+
+/* comparativa */
+.mxwrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.mx{width:100%;min-width:780px;border-collapse:collapse;font-size:13.5px}
+.mx th{text-align:left;font:500 10.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:12px 14px;background:var(--surface2);white-space:nowrap}
+.mx td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:middle}
+.mx tr.sel td{background:var(--brand-soft)}
+.mx .nm{background:none;border:0;padding:0;cursor:pointer;font-weight:700;text-align:left}
+.mx .nm:hover{color:var(--accent)}
+.mx small{display:block;color:var(--muted);font-size:12px}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--brand)}
+.reco{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+
+/* producción */
+.prod{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.prod .box{background:var(--surface)}
+.gt{font:500 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:14px 0 2px}
+.gt:first-of-type{margin-top:4px}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;cursor:pointer}
+.chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--brand);flex:none}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through}
+.prog{font:500 12px var(--fm);color:var(--muted);margin-top:12px}
+
+footer.foot{background:var(--brand);color:var(--on-brand);padding-block:16px}
+.footin{display:flex;justify-content:space-between;align-items:center;gap:8px 20px;flex-wrap:wrap}
+.tag{font:700 12px var(--fh);letter-spacing:.28em;text-transform:uppercase}
+.fsm{font:500 11px var(--fm);letter-spacing:.06em}
+
+@media (max-width:980px){
+  .picker{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dhead,.herogrid{grid-template-columns:minmax(0,1fr)}
+  .radarbox{max-width:320px}
+}
+@media (max-width:900px){
+  .seg-h{display:none}
+  .seg{grid-template-columns:minmax(0,1fr)}
+  .c::before{content:attr(data-l);display:block;font:500 10px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .c{padding:10px 14px}
+  .c.t,.c.r{display:inline-block}
+  .c.t::before,.c.r::before{display:none}
+  .seg{padding-block:6px}
+}
+@media (max-width:720px){
+  .track,.stagebox,.duo,.reco,.prod{grid-template-columns:minmax(0,1fr)}
+  .picker{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .panel{padding:16px}
+}
+@media (max-width:520px){
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+
+<header class="band top"><div class="in topin">
+  <span class="wm">Altaltium <span>Real Estate Solutions</span></span>
+  <span class="ctx">RENOVA · Contenido para redes</span>
+</div></header>
+
+<main>
+<section class="band hero"><div class="in herogrid">
+  <div>
+    <div class="eb">Proyecto RENOVA #89 · Peralvillo, Cuauhtémoc · CDMX 06220</div>
+    <h1>Calzada de los Misterios 89</h1>
+    <p class="lead">Cinco guiones de reel para mostrar la remodelación en curso y generar confianza. Cada uno comunica la etapa actual, el siguiente paso y la fecha estimada de conclusión.</p>
+  </div>
+  <div class="facts" aria-label="Ficha técnica">
+    <div class="fact"><b>66 m²</b><span>Superficie y construcción</span></div>
+    <div class="fact"><b>55 años</b><span>Antigüedad</span></div>
+    <div class="fact"><b>2 + 1</b><span>Recámaras y baño completo</span></div>
+    <div class="fact"><b>Cocina</b><span>Más patio de servicio</span></div>
+    <div class="fact"><b>$350,000</b><span>Costo de remodelación</span></div>
+    <div class="fact"><b>≈ $5,300</b><span>Remodelación por m²</span></div>
+  </div>
+</div></section>
+
+<section class="band sec"><div class="in">
+  <div class="sechead">
+    <div class="eb">Estado de la obra</div>
+    <h2>Tres datos que todo reel debe decir</h2>
+    <p class="sub">Toca una etapa para ver qué explicar en cámara y qué grabar. Las etapas intermedias entre humedades y conclusión no están definidas aún, por eso los guiones las resumen como «el resto de la remodelación».</p>
+  </div>
+  <div class="track" id="track"></div>
+  <div class="counters" id="counters"></div>
+  <div class="stagebox" id="stagebox"></div>
+</div></section>
+
+<section class="band sec"><div class="in">
+  <div class="sechead">
+    <div class="eb">Guiones</div>
+    <h2>Cinco guiones de reel</h2>
+    <p class="sub">Duran entre 36 y 41 segundos. Todos repiten los tres datos de la obra con un ángulo distinto y terminan con una sola acción para quien mira.</p>
+  </div>
+  <div class="picker" id="picker" role="tablist" aria-label="Guiones"></div>
+  <article class="panel" id="detail" aria-live="polite"></article>
+</div></section>
+
+<section class="band sec"><div class="in">
+  <div class="sechead">
+    <div class="eb">Comparativa</div>
+    <h2>Cuál grabar primero</h2>
+    <p class="sub">Evaluación editorial de cada guion contra el marco de 28 elementos, de 1 a 5. Sirve para decidir, no predice vistas.</p>
+  </div>
+  <div class="mxwrap"><table class="mx" id="mx"></table></div>
+  <div class="reco">
+    <div class="box" style="background:var(--surface)"><h4>Prioridad</h4><p>Si solo grabas dos: el <b>guion 2</b> (guardados y alcance, prepara la etapa que arranca el 9 de noviembre) y el <b>guion 5</b> (la versión más directa del encargo: una persona explica etapa, siguiente paso y fecha).</p></div>
+    <div class="box" style="background:var(--surface)"><h4>Vigencia</h4><p>Los textos dicen «desde el 9 de noviembre». Publícalos entre el 11 y el 15 de noviembre (Instagram el miércoles, TikTok el jueves de 19:00 a 22:00, según el calendario vigente). Después de esa semana la etapa cambia y hay que actualizar el texto.</p></div>
+  </div>
+</div></section>
+
+<section class="band sec"><div class="in">
+  <div class="sechead">
+    <div class="eb">Producción</div>
+    <h2>Para la visita a la obra</h2>
+    <p class="sub">Las marcas se guardan en este navegador. Graba cada plano al menos 5 segundos para poder cortar cada 2 o 3.</p>
+  </div>
+  <div class="prod">
+    <div class="box"><h4>Lista de tomas</h4><div id="shots"></div><div class="prog" id="shots-prog"></div></div>
+    <div class="box"><h4>Confirmar antes de grabar</h4><div id="confirm"></div><div class="prog" id="confirm-prog"></div></div>
+  </div>
+</div></section>
+</main>
+
+<footer class="band foot"><div class="in footin">
+  <span class="tag">La llave de tu futuro</span>
+  <span class="fsm">@altaltiumrealestates · RENOVA</span>
+</div></footer>
+
+<script>
+const ELEMENTS={1:"Interrupción de patrón",2:"Loop cognitivo abierto",6:"Utilidad práctica",10:"Prueba concreta",12:"Especificidad numérica",14:"Conocimiento prohibido",15:"Reciprocidad",16:"Tasa de retención",18:"Saves",20:"Densidad de información",21:"Ritmo y pacing",22:"Hook visual (Frame 0)",24:"CTA de acción específica",27:"Serie con cliffhanger"};
+const CRIT=[["gancho","Gancho"],["loop","Loop"],["emocion","Emoción"],["moneda","Moneda social"],["cta","CTA"],["confianza","Confianza"]];
+
+const STAGES=[
+  {k:"Etapa actual",t:"Desmantelamiento y demoliciones",w:"En curso · visita del 6 de noviembre",now:true,
+   say:["Se retiran acabados, azulejo, aplanados y marcos de ventana viejos.","El objetivo es dejar muros y pisos a la vista para empezar de cero.","Decirlo en presente: «hoy estamos en…»."],
+   show:["Obrero retirando el aplanado y mostrando el ladrillo expuesto","Costales de escombro y marcos dorados apilados","Azulejo roto durante la demolición","Techo con manchas y cable expuesto (estado inicial)"]},
+  {k:"Siguiente etapa",t:"Tratamiento de humedades",w:"Desde la semana del 9 de noviembre",
+   say:["Se atiende la humedad de los muros, que viene desde el subsuelo.","Va antes de cualquier acabado.","Decirlo con fecha: «a partir del 9 de noviembre»."],
+   show:["Base de los muros con la mancha oscura de humedad","Ladrillo expuesto en plano detalle","Cuando arranque, grabar el inicio como capítulo 2 de la bitácora"]},
+  {k:"Conclusión estimada",t:"Mediados de diciembre",w:"Fecha estimada",
+   say:["Siempre como fecha estimada, nunca como garantía.","Comprometer en público el regreso a la misma sala para mostrar el resultado.","Si cambia la fecha, avisarlo en el siguiente capítulo."],
+   show:["Mismo encuadre del hook para el cierre circular","Imágenes de proyecto de la ficha, rotuladas «PROYECTO»","Plano final de la sala vacía listo para el video de cierre"]}
+];
+
+const SCRIPTS=[
+{n:1,name:"El durante",focus:"Transparencia",dur:"≈36 s",format:"A cámara + B-roll",
+ goal:"Posicionar a Altaltium como la inmobiliaria que enseña el proceso completo, no solo el resultado, y convertir el desorden de la obra en prueba de seriedad.",
+ hook:"Todos te enseñan el antes y el después. Nadie te enseña el durante.",hookText:"NADIE TE ENSEÑA EL «DURANTE»",
+ elements:[1,2,10,22],rating:{gancho:4,loop:3,emocion:3,moneda:4,cta:3,confianza:5},
+ best:"Diferenciarse de la competencia",confirm:"Nada crítico",
+ why:"El plan de contenido detecta mucho volumen y poca profundidad en la competencia. Mostrar la etapa intermedia es una diferencia visible y verificable.",
+ audio:"Sonido ambiente de obra y un audio en tendencia al 10–15 % de volumen. La voz manda.",
+ segments:[
+  {t:"0–3 s",rol:"HOOK",say:"Todos te enseñan el antes y el después. Nadie te enseña el durante.",screen:"NADIE TE ENSEÑA EL «DURANTE»",shot:"A cámara, plano medio, entre costales de escombro y marcos de ventana dorados. Sin logo ni saludo.",trig:"Interrupción de patrón · Frame 0"},
+  {t:"3–9 s",rol:"ESCALADA",say:"Departamento de 66 metros en Peralvillo, 55 años de construcción. Hoy está en desmantelamiento y demoliciones.",screen:"ETAPA ACTUAL: DEMOLICIONES · 66 m² · 55 AÑOS",shot:"Corte a obrero retirando el aplanado del muro; plano de costales y herramientas.",trig:"Prueba concreta"},
+  {t:"9–20 s",rol:"DESARROLLO",say:"Esto es lo que hay debajo de la pintura. Mira la base del muro: ahí se ve la humedad que sube desde el subsuelo.",screen:"HUMEDAD DESDE EL SUBSUELO (flecha a la mancha)",shot:"Plano detalle del ladrillo expuesto y la mancha oscura de la base; la persona la señala con la mano.",trig:"Novedad · Prueba concreta"},
+  {t:"20–30 s",rol:"PAYOFF",say:"Por eso la siguiente etapa, desde el 9 de noviembre, es el tratamiento de humedades. Estimamos terminar a mediados de diciembre.",screen:"DEMOLICIONES (HOY) → HUMEDADES · 9 NOV → CONCLUSIÓN · MEDIADOS DE DIC",shot:"Línea de tiempo de tres nodos sobre el fondo del cuarto; cada nodo entra al nombrarse.",trig:"Resolución del loop + pregunta nueva"},
+  {t:"30–36 s",rol:"CTA",say:"Aquí no solo te enseñamos el final. Comenta OBRA y te mandamos cada avance por WhatsApp.",screen:"COMENTA «OBRA»",shot:"Regreso al mismo plano y posición del hook (cierre circular).",trig:"CTA específico · Open loop"}
+ ],
+ tt:"Todos muestran el antes y el después. Nosotros te mostramos el durante. Comenta OBRA y te mandamos cada avance.",
+ ig:"Todos muestran el antes y el después. Pocos muestran el durante.\n\nCalzada de los Misterios 89, Peralvillo.\n• Hoy: desmantelamiento y demoliciones.\n• Desde el 9 de noviembre: tratamiento de humedades.\n• Conclusión estimada: mediados de diciembre.\n\nComenta OBRA y te mandamos cada avance por WhatsApp.\n\nAltaltium Real Estate Solutions · La llave de tu futuro\n\n#RENOVA #Altaltium #BitacoraDeObra #RemodelacionCDMX #Peralvillo #CDMX #BienesRaicesCDMX",
+ notes:["«Nadie» es un recurso de gancho: no nombres ni muestres a otras inmobiliarias.","Graba la mancha de humedad con luz lateral para que se vea en pantalla."]},
+
+{n:2,name:"La humedad no se pinta",focus:"Utilidad · Guardados",dur:"≈38 s",format:"A cámara + B-roll",
+ goal:"Dar una regla útil para comprar un departamento remodelado y mostrar que Altaltium trata la causa antes de los acabados.",
+ hook:"¿Qué hicieron con la humedad? La pregunta que nadie hace al comprar.",hookText:"COMPRAS UN DEPA REMODELADO. ¿Y LA HUMEDAD?",
+ elements:[6,14,18,24],rating:{gancho:4,loop:4,emocion:3,moneda:4,cta:4,confianza:5},
+ best:"Guardados y alcance",confirm:"Técnica de humedades",
+ why:"Combina utilidad práctica con un dato poco difundido: es el tipo de contenido que se guarda y se envía. Además prepara la etapa que arranca el 9 de noviembre.",
+ audio:"Sin música en el hook (voz limpia). Audio en tendencia muy bajo desde el desarrollo.",
+ segments:[
+  {t:"0–3 s",rol:"HOOK",say:"¿Qué hicieron con la humedad? La pregunta que nadie hace al comprar.",screen:"COMPRAS UN DEPA REMODELADO. ¿Y LA HUMEDAD?",shot:"Plano cerrado a la base del muro con ladrillo y mancha oscura; la persona entra al cuadro y apoya la mano.",trig:"Aversión a la pérdida · Curiosidad abierta"},
+  {t:"3–10 s",rol:"ESCALADA",say:"Pintar encima es lo más rápido. Pero la humedad que sube desde el subsuelo, si no se trata, vuelve a salir.",screen:"PINTAR ≠ TRATAR",shot:"Contraste: muro blanco liso contra la base descubierta del otro muro.",trig:"Myth buster"},
+  {t:"10–21 s",rol:"DESARROLLO",say:"Este departamento tiene 55 años y la humedad viene del subsuelo. Hoy estamos en demolición: quitamos acabados hasta dejar el muro a la vista.",screen:"ETAPA ACTUAL: DEMOLICIONES",shot:"Obrero retirando aplanado con polvo visible; costales de escombro al fondo.",trig:"Prueba concreta · Autenticidad"},
+  {t:"21–31 s",rol:"PAYOFF",say:"Desde el 9 de noviembre empieza el tratamiento de humedades, antes de cualquier acabado. Estimamos concluir a mediados de diciembre.",screen:"9 NOV · HUMEDADES → MEDIADOS DE DIC · CONCLUSIÓN",shot:"A cámara frente al muro con ladrillo expuesto.",trig:"Resolución parcial + promesa de seguimiento"},
+  {t:"31–38 s",rol:"CTA",say:"Guarda este video. Antes de comprar un depa remodelado, pregunta qué hicieron con la humedad.",screen:"GUARDA ESTE VIDEO · 1) ¿DE DÓNDE VIENE? 2) ¿QUÉ SE HIZO? 3) ¿QUÉ EVIDENCIA HAY?",shot:"Las tres preguntas aparecen una por una (≈2 s cada una) sobre el plano a cámara.",trig:"Utilidad práctica · Saves"}
+ ],
+ tt:"¿Qué hicieron con la humedad? La pregunta que nadie hace al comprar un depa remodelado. Guarda este video.",
+ ig:"Antes de comprar un departamento remodelado, pregunta:\n1. ¿De dónde viene la humedad?\n2. ¿Qué se hizo para tratarla?\n3. ¿Qué evidencia hay?\n\nEn Calzada de los Misterios 89 (Peralvillo), el tratamiento de humedades empieza el 9 de noviembre, antes de cualquier acabado. Conclusión estimada: mediados de diciembre.\n\nGuarda este post para tu próxima visita a un depa.\n\nAltaltium Real Estate Solutions · La llave de tu futuro\n\n#RENOVA #Altaltium #Humedad #ComprarDepartamento #RemodelacionCDMX #Peralvillo #CDMX",
+ notes:["Confirma con el responsable de obra qué técnica se usará. La persona en cámara debe poder explicarla en una frase si preguntan en comentarios.","Deja listos los tres primeros comentarios: una respuesta breve a cada una de las tres preguntas."]},
+
+{n:3,name:"55 años, 66 m², $350,000",focus:"Números",dur:"≈41 s",format:"Montaje + voz + A cámara",
+ goal:"Entregar la ficha completa del proyecto en 40 segundos con cifras reales y dejar abierta la pregunta de cómo queda.",
+ hook:"Depa de 55 años. 66 metros. Remodelación: trescientos cincuenta mil pesos.",hookText:"55 AÑOS · 66 m² · $350,000",
+ elements:[12,10,20,16],rating:{gancho:5,loop:3,emocion:3,moneda:3,cta:4,confianza:4},
+ best:"Captar leads del departamento",confirm:"Publicar el costo",
+ why:"Los números concretos detienen el scroll y dan credibilidad. La densidad de datos a ritmo rápido favorece guardados y rewatch.",
+ audio:"Un beat que marque los tres números del hook; después baja a segundo plano.",
+ segments:[
+  {t:"0–3 s",rol:"HOOK",say:"Depa de 55 años. 66 metros. Remodelación: trescientos cincuenta mil pesos.",screen:"55 AÑOS · 66 m² · $350,000",shot:"Tres planos de un segundo: fachada, sala en obra, escombro. Cada cifra entra con su plano.",trig:"Especificidad numérica · Frame 0"},
+  {t:"3–10 s",rol:"ESCALADA",say:"Así empieza la remodelación de este departamento en Peralvillo, cerca del Metro Misterios: dos recámaras, un baño, cocina y patio de servicio.",screen:"2 REC · 1 BAÑO · COCINA · PATIO · ≈ $5,300 POR m²",shot:"A cámara y recorrido rápido por cada espacio, corte cada 2 s.",trig:"Densidad de información"},
+  {t:"10–20 s",rol:"DESARROLLO",say:"Hoy vamos en desmantelamiento y demoliciones: quitamos lo que ya no sirve para empezar de cero.",screen:"ETAPA ACTUAL",shot:"Azulejo roto, marcos apilados, obrero trabajando, costales.",trig:"Prueba concreta"},
+  {t:"20–30 s",rol:"CUERPO",say:"Sigue el paso que no se ve pero lo define todo: desde el 9 de noviembre, tratamiento de humedades en muros que vienen desde el subsuelo.",screen:"9 NOV · TRATAMIENTO DE HUMEDADES",shot:"Zoom lento a la base del muro con ladrillo expuesto.",trig:"Loop abierto (¿cómo queda?)"},
+  {t:"30–36 s",rol:"PAYOFF",say:"Estimamos terminar a mediados de diciembre. Mismo departamento, otra historia.",screen:"MEDIADOS DE DIC · PROYECTO (REFERENCIA)",shot:"Transición del estado actual a las imágenes de proyecto de la ficha, rotuladas «PROYECTO».",trig:"Satisfacción antes / proyecto"},
+  {t:"36–41 s",rol:"CTA",say:"Comenta DEPA y te avisamos cuando salga a la venta.",screen:"COMENTA «DEPA»",shot:"A cámara, plano cerrado.",trig:"CTA específico"}
+ ],
+ tt:"55 años. 66 m². $350,000 de remodelación en Peralvillo, CDMX. Comenta DEPA y te avisamos cuando salga a la venta.",
+ ig:"55 años, 66 metros cuadrados y una remodelación de $350,000 en Peralvillo.\n\n• 2 recámaras, 1 baño completo, cocina y patio de servicio\n• Hoy: desmantelamiento y demoliciones\n• Desde el 9 de noviembre: tratamiento de humedades\n• Conclusión estimada: mediados de diciembre\n\nComenta DEPA y te avisamos cuando salga a la venta.\n\nAltaltium Real Estate Solutions · La llave de tu futuro\n\n#RENOVA #Altaltium #Peralvillo #DepartamentoCDMX #RemodelacionCDMX #CDMX #InversionInmobiliaria",
+ notes:["Confirma con dirección si el costo de remodelación puede publicarse. Si no, usa el hook alterno: «Depa de 55 años. 66 metros. Remodelación completa.» con el texto «55 AÑOS · 66 m² · REMODELACIÓN COMPLETA».","Las imágenes «después» de la ficha deben verse como proyecto o referencia, nunca como resultado ya logrado.","≈ $5,300 por m² es $350,000 ÷ 66 m², redondeado."]},
+
+{n:4,name:"Bitácora de obra · Cap. 1",focus:"Serie",dur:"≈37 s",format:"B-roll + voz, cierre a cámara",
+ goal:"Arrancar una serie que convierta una visita en seguimiento: quien ve el capítulo 1 tiene motivos para volver por el 2 y por el final.",
+ hook:"Bitácora de obra, capítulo uno: lo que tiramos.",hookText:"BITÁCORA DE OBRA · CAP. 1 · CALZ. DE LOS MISTERIOS 89",
+ elements:[27,2,21,24],rating:{gancho:3,loop:5,emocion:3,moneda:3,cta:3,confianza:4},
+ best:"Seguidores y retorno",confirm:"Conteo de costales",
+ why:"El formato serie con final abierto es el que más convierte espectadores en seguidores. El capítulo 2 ya tiene fecha: arranca el 9 de noviembre.",
+ audio:"El sonido de la obra (golpes, raspado de muro) es el audio principal, con la voz encima. Nada de memes.",
+ segments:[
+  {t:"0–3 s",rol:"HOOK",say:"Bitácora de obra, capítulo uno: lo que tiramos.",screen:"BITÁCORA DE OBRA · CAP. 1 · CALZ. DE LOS MISTERIOS 89",shot:"Costales de escombro en plano cerrado; la cámara sube hasta revelar la sala en obra.",trig:"Serie · Frame 0"},
+  {t:"3–9 s",rol:"ESCALADA",say:"Departamento de 55 años en Peralvillo. Etapa actual: desmantelamiento y demoliciones.",screen:"ETAPA ACTUAL: DEMOLICIONES",shot:"Fachada del edificio con el número 89 visible; corte a la entrada del departamento.",trig:"Contexto + Prueba concreta"},
+  {t:"9–19 s",rol:"DESARROLLO",say:"Retiramos acabados, azulejo y marcos de ventana viejos. Hasta hoy: [N] costales de escombro.",screen:"COSTALES DE ESCOMBRO: [N] (contador animado)",shot:"Montaje con corte cada 2 s: obrero, azulejo roto, marcos apilados, costales.",trig:"Ritmo · Prueba concreta"},
+  {t:"19–28 s",rol:"GIRO",say:"Esto es solo el capítulo uno. En el capítulo dos, desde el 9 de noviembre, atendemos lo que no se ve: la humedad que sube desde el subsuelo.",screen:"CAP. 2 · 9 NOV · HUMEDADES (PRÓXIMAMENTE)",shot:"Zoom lento a la mancha de humedad en la base del muro.",trig:"Cliffhanger · Loop abierto"},
+  {t:"28–33 s",rol:"PAYOFF",say:"Y el capítulo final lo ves a mediados de diciembre.",screen:"CAP. 1 · CAP. 2 · … · FINAL: MEDIADOS DE DIC",shot:"Barra de capítulos que avanza; la persona aparece a cámara.",trig:"Promesa de continuidad"},
+  {t:"33–37 s",rol:"CTA",say:"Síguenos para no perderte el capítulo dos.",screen:"SÍGUENOS · CAP. 2",shot:"A cámara.",trig:"CTA específico"}
+ ],
+ tt:"Bitácora de obra, capítulo 1: lo que tiramos. Calzada de los Misterios 89. Síguenos para ver el capítulo 2.",
+ ig:"Bitácora de obra · Capítulo 1\nCalzada de los Misterios 89, Peralvillo.\nEtapa actual: desmantelamiento y demoliciones.\n\nCapítulo 2, desde el 9 de noviembre: tratamiento de humedades.\nCapítulo final: mediados de diciembre (fecha estimada).\n\nSíguenos para no perderte el capítulo 2.\n\nAltaltium Real Estate Solutions · La llave de tu futuro\n\n#RENOVA #Altaltium #BitacoraDeObra #ObraEnProceso #Peralvillo #CDMX #RemodelacionCDMX",
+ notes:["Cuenta los costales en sitio y sustituye [N]. En las fotos hay costales visibles, pero no el total.","Graba el capítulo 2 en la semana del 9 de noviembre para que la serie tenga continuidad en menos de siete días."]},
+
+{n:5,name:"Fecha comprometida",focus:"Compromiso público",dur:"≈39 s",format:"A cámara en plano secuencia",
+ goal:"Que una persona real explique etapa actual, siguiente paso y fecha desde la obra, y se comprometa en público a volver a la misma sala.",
+ hook:"Estoy entre escombros y te doy una fecha: mediados de diciembre.",hookText:"FECHA ESTIMADA: MEDIADOS DE DIC.",
+ elements:[22,10,15,24],rating:{gancho:4,loop:4,emocion:3,moneda:3,cta:4,confianza:5},
+ best:"Confianza en la marca",confirm:"Persona en cámara",
+ why:"Es la versión más directa del encargo. Comprometer una fecha en público y cerrar en el mismo punto donde empezó genera confianza y un loop circular.",
+ audio:"Voz limpia y sin música en el hook. Música mínima desde el payoff.",
+ segments:[
+  {t:"0–3 s",rol:"HOOK",say:"Estoy entre escombros y te doy una fecha: mediados de diciembre.",screen:"FECHA ESTIMADA: MEDIADOS DE DIC.",shot:"A cámara, plano medio, casco y chaleco visibles; escombro y marcos al fondo.",trig:"Compromiso público · Frame 0"},
+  {t:"3–10 s",rol:"ESCALADA",say:"Este departamento de Peralvillo tiene 55 años y hoy está en demolición. Así se ve esta etapa, y así debe verse.",screen:"ETAPA ACTUAL: DEMOLICIONES",shot:"Camina por la sala hacia el pasillo y la cámara lo sigue (plano secuencia).",trig:"Autenticidad diseñada"},
+  {t:"10–22 s",rol:"DESARROLLO",say:"Primero, desmantelamiento y demoliciones: la etapa que ves. Después, desde el 9 de noviembre, tratamiento de humedades en muros, que vienen desde el subsuelo. Luego, el resto de la remodelación.",screen:"1 DEMOLICIONES · 2 HUMEDADES (9 NOV) · 3 RESTO DE LA OBRA",shot:"Se detiene frente al muro con ladrillo y cuenta con los dedos; la lista aparece en pantalla.",trig:"Densidad de información"},
+  {t:"22–30 s",rol:"CUERPO",say:"¿Por qué te lo cuento? Porque la confianza se construye mostrando el proceso, no solo el resultado.",screen:"CONFIANZA = PROCESO + RESULTADO",shot:"Plano cerrado a cámara, sin cortes.",trig:"Reciprocidad · Valor antes de venta"},
+  {t:"30–35 s",rol:"PAYOFF",say:"Regreso a esta misma sala a mediados de diciembre para cumplir lo que dije.",screen:"VOLVEMOS EN DICIEMBRE",shot:"Termina en el mismo punto donde empezó el hook (cierre circular).",trig:"Compromiso + loop circular"},
+  {t:"35–39 s",rol:"CTA",say:"Comenta DICIEMBRE y te escribimos cuando esté listo.",screen:"COMENTA «DICIEMBRE»",shot:"A cámara.",trig:"CTA específico"}
+ ],
+ tt:"Te doy una fecha desde la obra: mediados de diciembre. Comenta DICIEMBRE y te escribimos cuando esté listo.",
+ ig:"Una fecha estimada, dicha en público: mediados de diciembre.\n\nCalzada de los Misterios 89, Peralvillo:\n1. Desmantelamiento y demoliciones (hoy)\n2. Tratamiento de humedades (desde el 9 de noviembre)\n3. El resto de la remodelación\n\nLa confianza se construye mostrando el proceso. Comenta DICIEMBRE y te escribimos cuando esté listo.\n\nAltaltium Real Estate Solutions · La llave de tu futuro\n\n#RENOVA #Altaltium #Remodelacion #Peralvillo #CDMX #ObraEnProceso",
+ notes:["La fecha siempre se dice y se escribe como estimada.","Quien va a cámara usa casco y mascarilla por el polvo, y habla caminando, sin leer.","Graba el hook y el cierre desde el mismo punto."]}
+];
+
+const SHOTS=[
+ {g:"A cámara",items:["Plano medio vertical (9:16) de la persona entre el escombro, con casco y chaleco","Cierre desde el mismo punto del hook, para el cierre circular","Plano secuencia caminando de la sala al pasillo"]},
+ {g:"B-roll de la obra",items:["Muro con ladrillo expuesto y mancha de humedad en la base (detalle y plano abierto)","Obrero retirando aplanado, con el polvo visible","Costales de escombro: contarlos para el dato [N]","Marcos de ventana dorados apilados","Azulejo roto durante la demolición","Techo con manchas y cable expuesto","Fachada del edificio con el número 89 visible","Herramientas en uso: pala, mazo, escoba","10 segundos de sonido ambiente sin voz"]},
+ {g:"Para la portada",items:["Foto fija del ladrillo expuesto con espacio libre para el texto del título"]}
+];
+const CONFIRM=[
+ {g:"Antes de grabar",items:["Técnica del tratamiento de humedades, confirmada con el responsable de obra","Si se puede publicar el costo de remodelación ($350,000)","Si las imágenes «después» de la ficha son renders o fotos finales (rotular «PROYECTO» si son renders)","Permiso para mostrar rostros del personal de obra, o grabar de espaldas","Nombre y cargo de la persona en cámara, con casco y mascarilla"]},
+ {g:"Antes de publicar",items:["Qué recibe quien comenta OBRA, DEPA o DICIEMBRE, y desde qué número de WhatsApp (el plan de contenido usa el de Marketing, 56 1004 9675)","Publicar entre el 11 y el 15 de noviembre, o actualizar la etapa en el texto","Para captar propietarios, cambiar la palabra clave por RENOVA"]}
+];
+
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dots=v=>`<span class="dots" title="${v} de 5" role="img" aria-label="${v} de 5">${[1,2,3,4,5].map(i=>`<i class="${i<=v?"on":""}"></i>`).join("")}</span>`;
+
+/* estado de la obra */
+let stageSel=0;
+function renderStages(){
+  $("#track").innerHTML=STAGES.map((s,i)=>`<button class="node${s.now?" now":""}" aria-pressed="${i===stageSel}" data-i="${i}"><span class="k">${esc(s.k)}</span><strong>${esc(s.t)}</strong><span class="w">${esc(s.w)}</span></button>`).join("");
+  const s=STAGES[stageSel];
+  $("#stagebox").innerHTML=`<div><h3>Qué explicar en cámara</h3><ul>${s.say.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>Qué grabar</h3><ul>${s.show.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  document.querySelectorAll(".node").forEach(b=>b.onclick=()=>{stageSel=+b.dataset.i;renderStages();});
+}
+function renderCounters(){
+  const now=new Date(), d0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const dd=(a,b)=>Math.round((b-a)/86400000);
+  const n1=dd(d0,new Date(2026,10,9)), n2=dd(d0,new Date(2026,11,15));
+  const fecha=new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long"}).format(now);
+  const t1=n1>0?`en ${n1} ${n1===1?"día":"días"}`:n1===0?"hoy":"ya inició";
+  const t2=n2>0?`≈ ${n2} días (tomando el 15 de diciembre como referencia)`:"fecha estimada alcanzada";
+  $("#counters").innerHTML=`<span>Hoy: <b>${esc(fecha)}</b></span><span>Humedades: <b>${t1}</b></span><span>Conclusión: <b>${t2}</b></span>`;
+}
+
+/* radar */
+function radar(r){
+  const cx=170,cy=135,R=84;
+  const pt=(i,v)=>{const a=(-90+i*60)*Math.PI/180;return [cx+R*(v/5)*Math.cos(a),cy+R*(v/5)*Math.sin(a)];};
+  const poly=v=>CRIT.map((_,i)=>pt(i,v).map(n=>n.toFixed(1)).join(",")).join(" ");
+  let g="";
+  for(let v=1;v<=5;v++)g+=`<polygon points="${poly(v)}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  CRIT.forEach((_,i)=>{const p=pt(i,5);g+=`<line x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`;});
+  const vals=CRIT.map(([k],i)=>pt(i,r[k]));
+  g+=`<polygon points="${vals.map(p=>p.map(n=>n.toFixed(1)).join(",")).join(" ")}" fill="var(--brand)" fill-opacity=".25" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>`;
+  vals.forEach(p=>{g+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5" fill="var(--accent)"/>`;});
+  CRIT.forEach(([k,l],i)=>{
+    const p=pt(i,5.9), x=p[0], y=p[1];
+    const anchor=x>cx+6?"start":x<cx-6?"end":"middle";
+    const dy=y<cy-20?-2:y>cy+20?10:4;
+    g+=`<text x="${x.toFixed(1)}" y="${(y+dy).toFixed(1)}" text-anchor="${anchor}" font-size="11" font-weight="600" fill="var(--fg)" font-family="Montserrat,sans-serif">${esc(l)} ${r[k]}</text>`;
+  });
+  return `<svg viewBox="0 0 340 270" role="img" aria-label="Radar de evaluación del guion">${g}</svg>`;
+}
+
+/* guiones */
+let current=1;
+function renderPicker(){
+  $("#picker").innerHTML=SCRIPTS.map(s=>`<button class="pick" role="tab" aria-selected="${s.n===current}" data-n="${s.n}"><span class="n">Guion ${s.n}</span><strong>${esc(s.name)}</strong><span class="m">${esc(s.focus)} · ${esc(s.dur)}</span></button>`).join("");
+  document.querySelectorAll(".pick").forEach(b=>b.onclick=()=>selectScript(+b.dataset.n,true));
+}
+function scriptText(s){
+  return `GUION ${s.n} · ${s.name} (${s.dur})\n${s.format}\n\n`+
+    s.segments.map(g=>`[${g.t}] ${g.rol}\nSe dice: ${g.say}\nEn pantalla: ${g.screen}\nToma: ${g.shot}\n`).join("\n")+
+    `\nCaption TikTok:\n${s.tt}\n\nCaption Instagram:\n${s.ig}`;
+}
+function renderDetail(){
+  const s=SCRIPTS.find(x=>x.n===current);
+  const segs=s.segments.map(g=>`<div class="seg${g.rol==="CTA"?" cta":""}">
+    <div class="c t" data-l="Tiempo">${esc(g.t)}</div>
+    <div class="c r" data-l="Rol">${esc(g.rol)}</div>
+    <div class="c say" data-l="Se dice">${esc(g.say)}</div>
+    <div class="c scr" data-l="En pantalla">${esc(g.screen)}</div>
+    <div class="c shot" data-l="Toma">${esc(g.shot)}</div>
+    <div class="c trig" data-l="Gatillo">${esc(g.trig)}</div></div>`).join("");
+  $("#detail").innerHTML=`
+  <div class="dhead">
+    <div>
+      <div class="kick">Guion ${s.n} · ${esc(s.format)} · ${esc(s.dur)}</div>
+      <h3 class="t">${esc(s.name)}</h3>
+      <p class="goal">${esc(s.goal)}</p>
+      <div class="chips">${s.elements.map(n=>`<span class="chip"><b>${String(n).padStart(2,"0")}</b>${esc(ELEMENTS[n])}</span>`).join("")}</div>
+    </div>
+    <div class="radarbox">${radar(s.rating)}<small>Evaluación editorial, 1 a 5</small></div>
+  </div>
+  <div class="hook"><div class="eb">Hook · frame 0</div><div class="q">${esc(s.hook)}</div><div class="s">En pantalla: ${esc(s.hookText)}</div></div>
+  <div class="why"><b>Por qué funciona</b>${esc(s.why)}</div>
+  <div class="segs" role="table">
+    <div class="seg-h" role="row"><div>Tiempo</div><div>Rol</div><div>Se dice</div><div>En pantalla</div><div>Toma</div><div>Gatillo</div></div>
+    ${segs}
+  </div>
+  <div class="duo">
+    <div class="box"><h4>Caption TikTok <button class="btn" data-copy="tt">Copiar</button></h4><p class="cap">${esc(s.tt)}</p></div>
+    <div class="box"><h4>Caption Instagram <button class="btn" data-copy="ig">Copiar</button></h4><p class="cap">${esc(s.ig)}</p></div>
+  </div>
+  <div class="box" style="margin-top:12px"><h4>Audio</h4><p>${esc(s.audio)}</p></div>
+  <div class="notes"><h4>Por confirmar o cuidar</h4><ul>${s.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul></div>
+  <div class="actions"><button class="btn pri" data-copy="all">Copiar guion completo</button></div>
+  <textarea class="manual" id="manual" readonly hidden aria-label="Texto para copiar manualmente"></textarea>`;
+  const texts={tt:s.tt,ig:s.ig,all:scriptText(s)};
+  document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>copyText(texts[b.dataset.copy],b));
+}
+async function copyText(text,btn){
+  const old=btn.textContent;
+  try{
+    await navigator.clipboard.writeText(text);
+    btn.textContent="Copiado";
+  }catch(e){
+    const m=$("#manual");m.hidden=false;m.value=text;m.focus();m.select();
+    btn.textContent="Selecciona y copia";
+  }
+  setTimeout(()=>{btn.textContent=old;},2200);
+}
+function selectScript(n,push){
+  current=n;
+  renderPicker();renderDetail();renderMatrix();
+  if(push){try{if(location.hash!=="#guion-"+n)location.hash="guion-"+n;}catch(e){}}
+}
+function fromHash(){const m=/^#guion-([1-5])$/.exec(location.hash);return m?+m[1]:1;}
+
+/* comparativa */
+function renderMatrix(){
+  const head=`<thead><tr><th>Guion</th>${CRIT.map(([,l])=>`<th>${l}</th>`).join("")}<th>Mejor para</th><th>Por confirmar</th></tr></thead>`;
+  const rows=SCRIPTS.map(s=>`<tr class="${s.n===current?"sel":""}"><td><button class="nm" data-n="${s.n}">${s.n}. ${esc(s.name)}</button><small>${esc(s.focus)} · ${esc(s.dur)}</small></td>${CRIT.map(([k])=>`<td>${dots(s.rating[k])}</td>`).join("")}<td>${esc(s.best)}</td><td>${esc(s.confirm)}</td></tr>`).join("");
+  $("#mx").innerHTML=head+`<tbody>${rows}</tbody>`;
+  document.querySelectorAll(".mx .nm").forEach(b=>b.onclick=()=>{selectScript(+b.dataset.n,true);$("#picker").scrollIntoView({behavior:"smooth",block:"start"});});
+}
+
+/* listas con marcas guardadas */
+const KEY="rm89-checks-v1";
+function loadChecks(){try{return JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){return {};}}
+function saveChecks(o){try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+function renderChecks(prefix,groups,hostId,progId,noun){
+  const state=loadChecks();let total=0;
+  const html=groups.map((grp,gi)=>`<div class="gt">${esc(grp.g)}</div>`+grp.items.map((it,ii)=>{total++;const id=`${prefix}-${gi}-${ii}`;return `<label class="chk"><input type="checkbox" id="${id}"${state[id]?" checked":""}><span>${esc(it)}</span></label>`;}).join("")).join("");
+  $("#"+hostId).innerHTML=html;
+  const upd=()=>{const s=loadChecks();const done=Object.keys(s).filter(k=>k.startsWith(prefix+"-")&&s[k]).length;$("#"+progId).textContent=`${done} de ${total} ${noun}`;};
+  $("#"+hostId).querySelectorAll("input").forEach(inp=>inp.onchange=()=>{const s=loadChecks();s[inp.id]=inp.checked;saveChecks(s);upd();});
+  upd();
+}
+
+renderStages();renderCounters();
+selectScript(fromHash(),false);
+renderChecks("shots",SHOTS,"shots","shots-prog","tomas");
+renderChecks("conf",CONFIRM,"confirm","confirm-prog","confirmaciones");
+window.addEventListener("hashchange",()=>selectScript(fromHash(),false));
+</script>
+
+</body></html>
